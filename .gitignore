@@ -1,0 +1,9 @@
+*.mp4
+data/*
+*.txt
+*.blend*
+*.csv
+*.png
+*.svg
+*.pdf
+.ipynb_chekcpoints/
