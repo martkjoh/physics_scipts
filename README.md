@@ -1,3 +1,3 @@
-# NRCH
+# Scripts made while studying the physics
 
-Studying the structure of the NRCH - https://arxiv.org/abs/2005.07101
+Among other things, studying the structure of the NRCH - https://arxiv.org/abs/2005.07101
