@@ -6,4 +6,6 @@ data/*
 *.png
 *.svg
 *.pdf
-.ipynb_chekcpoints/
+.ipynb_checkpoints/
+__pycache__/
+.vscode
