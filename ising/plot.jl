@@ -74,8 +74,11 @@ function fig_critical(Ls, byL, colors)
     end
 
     # three panels on a 2×2 grid: the legend takes the free cell
+    # tellwidth/tellheight false: otherwise the legend, being narrow, would
+    # shrink the whole second column and squash panel (b)
     Legend(fig[2, 2], content(fig[1, 1]); framevisible = false, merge = true,
-           halign = :left, valign = :center, patchsize = (22, 12))
+           tellwidth = false, tellheight = false,
+           halign = :center, valign = :center, patchsize = (24, 12))
     Label(fig[0, 1:2],
           L"\text{2D Ising model: the transition sharpens as }L\text{ grows, at }T_c = 2/\ln(1+\sqrt{2})",
           fontsize = 14)
@@ -159,9 +162,9 @@ function main()
     mkpath(FIG)
     Ls, byL, colors = load()
     mov = deserialize(joinpath(DATA, "frames.jls"))
-    # println("critical.pdf");  fig_critical(Ls, byL, colors)
-    # println("scaling.pdf");   fig_scaling(Ls, byL, colors)
-    # println("snapshots.pdf"); fig_snapshots(mov)
+    println("critical.pdf");  fig_critical(Ls, byL, colors)
+    println("scaling.pdf");   fig_scaling(Ls, byL, colors)
+    println("snapshots.pdf"); fig_snapshots(mov)
     println("ising.mp4");     make_movie(mov)
     println("→ all written to ", FIG)
 end
