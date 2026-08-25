@@ -193,7 +193,7 @@ function make_movie()
     # Configurations below, at, and above T_c, for the snapshots and the movie.
     # The bar counts sweeps, since the warm-up dominates the time here.
     Lmov, spf, nframes, nequil = 2^8, 1, 300, 50_000
-    temps = [0.90TC, TC, 1.10TC]
+    temps = [0.8TC, TC, 1.2TC]
     prog = Progress(length(temps) * (nequil + nframes * spf); desc = "movie sweeps ")
     frames = cat((movie_frames(Lmov, T; nframes, sweeps_per_frame = spf, nequil, prog) for T in temps)...; dims = 4)
     serialize(joinpath(DATA, "frames.jls"), (; L = Lmov, T = temps, sweeps_per_frame = spf, frames))
@@ -204,9 +204,9 @@ function main()
     mkpath(DATA)
     nthreads() == 1 && @warn "single threaded — use `julia -t auto ising_simple.jl`"
 
-    # run_sweep()
-
+    run_sweep()
     make_movie()
+
 end
 
 # Run the simulation when this file is executed (`julia ising_simple.jl`) or sent to the

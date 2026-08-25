@@ -84,7 +84,7 @@ function fig_critical(Ls, byL, colors)
           fontsize = 14)
     rowgap!(fig.layout, 6)
     save(joinpath(FIG, "critical.pdf"), fig)
-    save(joinpath(FIG, "critical.png"), fig; px_per_unit = 3)
+    # save(joinpath(FIG, "critical.png"), fig; px_per_unit = 3)
 end
 
 # --------------------------------------------- finite-size scaling ----------
@@ -94,19 +94,21 @@ function fig_scaling(Ls, byL, colors)
 
     # χ = L^{γ/ν} f((T-T_c) L^{1/ν}) with the exact 2D exponents γ/ν = 7/4,
     # ν = 1: the curves collapse onto one scaling function.
-    ax = Axis(fig[1, 1]; xlabel = L"(T - T_c)\, L^{1/\nu}",
-              ylabel = L"\chi\, L^{-\gamma/\nu}",
-              title = "susceptibility data collapse")
+    ax = Axis(fig[1, 1]; xlabel = L"(T - T_c)\, L^{1/\nu}", ylabel = L"\chi\, L^{-\gamma/\nu}",
+              title = "susceptibility data collapse"
+    )
     for (i, L) in enumerate(Ls)
-        scatterlines!(ax, (byL[i][:, COL.T] .- TC) .* L,
-                      byL[i][:, COL.χ] ./ L^(7/4); color = colors[i], label = L"L=%$L")
+        scatterlines!(ax, (byL[i][:, COL.T] .- TC) .* L, byL[i][:, COL.χ] ./ L^(7/4); 
+                      color = colors[i], label = L"L=%$L"
+        )
     end
     xlims!(ax, -25, 40)
     axislegend(ax; framevisible = false, position = :rt, rowgap = 0)
-    text!(ax, 0.97, 0.62; text = L"\gamma/\nu = 7/4,\; \nu = 1", space = :relative,
-          align = (:right, :top), fontsize = 12)
+    text!(ax, 0.97, 0.62; 
+         text = L"\gamma/\nu = 7/4,\; \nu = 1", space = :relative, align = (:right, :top), fontsize = 12
+    )
     save(joinpath(FIG, "scaling.pdf"), fig)
-    save(joinpath(FIG, "scaling.png"), fig; px_per_unit = 3)
+    # save(joinpath(FIG, "scaling.png"), fig; px_per_unit = 3)
 end
 
 # ------------------------------------------------------- configurations -----
@@ -114,8 +116,7 @@ end
 paneltitle(T) = L"T = %$(round(T, digits = 3))\;\; (%$(round(T/TC, digits = 2))\, T_c)"
 
 function spinaxis(fig, pos, title)
-    ax = Axis(fig[pos...]; aspect = DataAspect(), title = title,
-              titlealign = :center, titlesize = 13)
+    ax = Axis(fig[pos...]; aspect = DataAspect(), title = title, titlealign = :center, titlesize = 13)
     hidedecorations!(ax); hidespines!(ax)
     return ax
 end
@@ -124,14 +125,14 @@ function fig_snapshots(mov)
     fig = Figure(size = (790, 305))
     for (k, T) in enumerate(mov.T)
         ax = spinaxis(fig, (1, k), paneltitle(T))
-        heatmap!(ax, mov.frames[:, :, end, k]; colormap = SPIN, colorrange = (-1, 1))
+        heatmap!(ax, mov.frames[:, :, end, k]; colormap = SPIN, colorrange = (-1, 1), rasterize = 4)
     end
     Label(fig[0, 1:3],
           L"\text{Equilibrium configurations, }L = %$(mov.L)\text{. At }T_c\text{, ordered regions appear on every length scale.}",
           fontsize = 13)
     rowgap!(fig.layout, 3)
     save(joinpath(FIG, "snapshots.pdf"), fig)
-    save(joinpath(FIG, "snapshots.png"), fig; px_per_unit = 3)
+    # save(joinpath(FIG, "snapshots.png"), fig; px_per_unit = 3)
 end
 
 function make_movie(mov)
@@ -143,17 +144,18 @@ function make_movie(mov)
         heatmap!(ax, o; colormap = SPIN, colorrange = (-1, 1))
         o
     end
-    sweep = Observable("sweep 0")
-    Label(fig[0, 1:3], "Metropolis dynamics, L = $(mov.L)", fontsize = 14)
-    Label(fig[2, 1:3], sweep, fontsize = 12, color = :gray35)
+    
+    Label(fig[0, :], "Metropolis dynamics, L = $(mov.L)", fontsize = 14)
     rowgap!(fig.layout, 3)
+    rowsize!(fig.layout, 1, Aspect(1, 1.0))
+    resize_to_layout!(fig)
 
     prog = Progress(nframes; desc = "recording    ")
+    # nframes = 2
     record(fig, joinpath(FIG, "ising.mp4"), 1:nframes; framerate = 25) do f
         for (k, o) in enumerate(obs)
             o[] = mov.frames[:, :, f, k]
         end
-        sweep[] = "sweep $(f * mov.sweeps_per_frame)"
         next!(prog)
     end
 end
@@ -162,10 +164,13 @@ function main()
     mkpath(FIG)
     Ls, byL, colors = load()
     mov = deserialize(joinpath(DATA, "frames.jls"))
-    println("critical.pdf");  fig_critical(Ls, byL, colors)
-    println("scaling.pdf");   fig_scaling(Ls, byL, colors)
-    println("snapshots.pdf"); fig_snapshots(mov)
+    
+    # println("critical.pdf");  fig_critical(Ls, byL, colors)
+    # println("scaling.pdf");   fig_scaling(Ls, byL, colors)
+    # println("snapshots.pdf"); fig_snapshots(mov)
+
     println("ising.mp4");     make_movie(mov)
+    
     println("→ all written to ", FIG)
 end
 
