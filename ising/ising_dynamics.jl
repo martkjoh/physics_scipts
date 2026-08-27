@@ -351,7 +351,7 @@ end
 function make_movie(dyn::Symbol = :metropolis; equil::Symbol = :wolff,
                     L::Int = 2^7, sweeps_per_frame::Int = 1, nframes::Int = 300, nequil::Int = 100)
     temps = [0.90TC, 1.00TC, 1.10TC]
-    temps = [1.01TC, 1.02TC, 1.03TC, 1.04TC,]
+    # temps = [1.01TC, 1.02TC, 1.03TC, 1.04TC,]
     prog = Progress(length(temps) * nframes; desc = "movie frames ")
     frames = cat((movie_frames(L, T; dyn, equil, nframes, sweeps_per_frame, nequil, prog) for T in temps)...; dims = 4)
     serialize(joinpath(DATA, "frames.jls"), (; L, T = temps, sweeps_per_frame, dyn, frames))
@@ -364,7 +364,7 @@ function main()
 
     # run_sweep(:wolff, :wolff)
     
-    make_movie(:metropolis; L = 2^11, nframes=100, nequil = 1000)
+    make_movie(:metropolis; L = 2^10, nframes=500, nequil = 1000)
     
     # make_movie(:kawasaki; L = 2^9, nframes=50)
     # make_movie(:kawasaki; equil = :kawasaki, L = 2^7, nequil=1_000_000)
