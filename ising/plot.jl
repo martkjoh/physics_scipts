@@ -127,9 +127,7 @@ function fig_snapshots(mov)
         ax = spinaxis(fig, (1, k), paneltitle(T))
         heatmap!(ax, mov.frames[:, :, end, k]; colormap = SPIN, colorrange = (-1, 1), rasterize = 4)
     end
-    Label(fig[0, 1:3],
-          L"\text{Equilibrium configurations, }L = %$(mov.L)\text{. At }T_c\text{, ordered regions appear on every length scale.}",
-          fontsize = 13)
+    Label(fig[0, 1:3],"Metropolis dynamics, L = $(mov.L)",fontsize = 13)
     rowgap!(fig.layout, 3)
     save(joinpath(FIG, "snapshots.pdf"), fig)
     # save(joinpath(FIG, "snapshots.png"), fig; px_per_unit = 3)
@@ -165,11 +163,11 @@ function main()
     Ls, byL, colors = load()
     mov = deserialize(joinpath(DATA, "frames.jls"))
     
-    # println("critical.pdf");  fig_critical(Ls, byL, colors)
-    # println("scaling.pdf");   fig_scaling(Ls, byL, colors)
-    # println("snapshots.pdf"); fig_snapshots(mov)
+    fig_critical(Ls, byL, colors)
+    fig_scaling(Ls, byL, colors)
+    fig_snapshots(mov)
 
-    println("ising.mp4");     make_movie(mov)
+    make_movie(mov)
     
     println("→ all written to ", FIG)
 end
