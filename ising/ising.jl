@@ -222,10 +222,7 @@ function simulate(L::Int, T::Float64; nequil::Int = 1_000, nmeas::Int = 10_000)
         m1 += abs(M);  m2 += Float64(M)^2
     end
     e1 /= nmeas; e2 /= nmeas; m1 /= nmeas; m2 /= nmeas
-    return (e = e1 / N,
-            m = m1 / N,
-            c = β^2 * (e2 - e1^2) / N,          # fluctuation-dissipation
-            χ = β * (m2 - m1^2) / N)
+    return (e = e1 / N, m = m1 / N, c = β^2 * (e2 - e1^2) / N, χ = β * (m2 - m1^2) / N)
 end
 
 """
@@ -270,30 +267,40 @@ function sweep_in_T(Ls, Ts)
     return rows
 end
 
-function main()
-    mkpath(DATA)
-    nthreads() == 1 && @warn "single threaded — use `julia -t auto ising.jl`"
 
+function run_sweep()
     # Denser temperature grid around T_c, where the observables vary fastest.
-    Ts = vcat(range(1.60, 2.05; length = 10),
-              range(2.10, 2.45; length = 29),
-              range(2.50, 3.20; length = 10))
+    Ts = vcat(
+        range(1.60, 2.05; length = 10),
+        range(2.10, 2.45; length = 29),
+        range(2.50, 3.20; length = 10)
+    )
     rows = sweep_in_T((16, 32, 64, 128), Ts)
     open(joinpath(DATA, "observables.csv"), "w") do io
         println(io, "L,T,e,m,c,chi")
         writedlm(io, rows, ',')
     end
     println("  → data/observables.csv  ", size(rows, 1), " rows")
+end
 
+
+function make_movie()
+    
     # Configurations below, at, and above T_c, for the snapshots and the movie.
-    Lmov, spf, nframes = 256, 1, 300
-    temps = [0.90TC, TC, 1.10TC]
+    Lmov, spf, nframes = 2^10, 1, 50
+    temps = [0.90TC, 1.00TC, 1.10TC]
     prog = Progress(length(temps) * nframes; desc = "movie frames ")
-    frames = cat((movie_frames(Lmov, T; nframes, sweeps_per_frame = spf, prog)
-                  for T in temps)...; dims = 4)
-    serialize(joinpath(DATA, "frames.jls"),
-              (; L = Lmov, T = temps, sweeps_per_frame = spf, frames))
+    frames = cat((movie_frames(Lmov, T; nframes, sweeps_per_frame = spf, prog) for T in temps)...; dims = 4)
+    serialize(joinpath(DATA, "frames.jls"), (; L = Lmov, T = temps, sweeps_per_frame = spf, frames))
     println("  → data/frames.jls  ", size(frames))
+end
+
+function main()
+    mkpath(DATA)
+    nthreads() == 1 && @warn "single threaded — use `julia -t auto ising.jl`"
+
+    # run_sweep()
+    make_movie()
 end
 
 # Run the simulation when this file is executed (`julia ising.jl`) or sent to the

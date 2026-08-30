@@ -12,12 +12,13 @@ what ships with Julia:
 using Pkg; Pkg.add(["ProgressMeter", "CairoMakie", "LaTeXStrings"])
 ```
 
-| script            | needs                                  |
-| ----------------- | -------------------------------------- |
-| `ising.jl`        | ProgressMeter                          |
-| `ising_simple.jl` | ProgressMeter                          |
-| `test.jl`         | ProgressMeter (it loads `ising.jl`)    |
-| `plot.jl`         | CairoMakie, LaTeXStrings, ProgressMeter |
+| script               | needs                                  |
+| -------------------- | -------------------------------------- |
+| `ising.jl`           | ProgressMeter                          |
+| `ising_simple.jl`    | ProgressMeter                          |
+| `ising_dynamics.jl`  | ProgressMeter                          |
+| `test.jl`            | ProgressMeter (it loads `ising.jl`)    |
+| `plot.jl`            | CairoMakie, LaTeXStrings, ProgressMeter |
 
 `Base.Threads`, `DelimitedFiles`, `Printf`, `Random`, `Serialization` and
 `Test` ship with Julia — nothing to install for those.
@@ -38,20 +39,22 @@ there too, or `activate` the default one first.
 
 ## Files
 
-| file              | what it does                                                              |
-| ----------------- | ------------------------------------------------------------------------- |
-| `ising.jl`        | Wolff cluster sampling for the equilibrium sweep, Metropolis for the movie |
-| `ising_simple.jl` | the same, with Metropolis only — shorter, but smaller lattices             |
-| `plot.jl`         | figures and the movie, from whatever is in `data/`                         |
-| `test.jl`         | checks the samplers against exactly known results                          |
+| file                | what it does                                                                       |
+| ------------------- | ----------------------------------------------------------------------------------- |
+| `ising.jl`          | Wolff cluster sampling for the equilibrium sweep, Metropolis for the movie          |
+| `ising_simple.jl`   | the same, with Metropolis only — shorter, but smaller lattices                      |
+| `ising_dynamics.jl` | Metropolis, Wolff, and Kawasaki spin-exchange, switchable per equilibration/sampling |
+| `plot.jl`           | figures and the movie, from whatever is in `data/`                                  |
+| `test.jl`           | checks the samplers against exactly known results                                   |
 
-Both simulation scripts write the same two files, so `plot.jl` and `test.jl`
-work with either. Running one overwrites the other's output.
+All three simulation scripts write the same two files, so `plot.jl` and
+`test.jl` work with any of them. Running one overwrites another's output.
 
 ## Running
 
 ```
 julia -t auto ising.jl          # ~4 min on 16 threads → data/
+julia -t auto ising_dynamics.jl # dynamics chosen in its main() → data/
 julia plot.jl                   # ~1.5 min            → fig/
 julia -t auto test.jl           # ~7 s
 ```
