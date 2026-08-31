@@ -75,7 +75,7 @@ end
 # Int8 keeps the lattice eight times smaller than Int64, so even a 256×256
 # lattice (64 kB) stays in cache.
 
-lattice(L) = rand((Int8(-1), Int8(1)), L, L)
+# lattice(L) = rand((Int8(-1), Int8(1)), L, L)
 
 # function lattice(L)
 #     s = Matrix{Int8}(undef, L, L)

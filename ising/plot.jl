@@ -11,6 +11,9 @@
 #                  behind "there is a critical point"
 #   snapshots.pdf  what the configurations look like below, at, and above T_c
 #   ising.mp4      Metropolis dynamics at the same three temperatures
+#
+# and, if NR_ising_dynamics.jl has been run (data/nr_frames.jls):
+#   nr_ising.mp4   the nonreciprocal Ising model, coloured by θ
 
 using CairoMakie, DelimitedFiles, Serialization, LaTeXStrings, Printf, ProgressMeter
 
@@ -18,6 +21,13 @@ const TC = 2 / log1p(sqrt(2))
 const DATA = joinpath(@__DIR__, "data")
 const FIG = joinpath(@__DIR__, "fig")
 const SPIN = [RGBf(0.96, 0.96, 0.93), RGBf(0.13, 0.15, 0.22)]   # s = -1, +1
+
+# The four states of a site of the nonreciprocal model, in the order the swap
+# cycles through them: (+,+) → (+,-) → (-,-) → (-,+) → (+,+). θ is an angle, so
+# the colours have to close the loop as well — a non-cyclic colormap would put
+# a false seam across the lattice and hide the spirals.
+const THETA = [RGBf(0.20, 0.35, 0.75), RGBf(0.96, 0.93, 0.82),
+               RGBf(0.90, 0.55, 0.15), RGBf(0.45, 0.20, 0.55)]
 
 set_theme!(Theme(
     fontsize = 13,
@@ -133,24 +143,38 @@ function fig_snapshots(mov)
     # save(joinpath(FIG, "snapshots.png"), fig; px_per_unit = 3)
 end
 
-function make_movie(mov)
+"""
+    make_movie(mov; file, colormap, colorrange, titles, label, legend)
+
+Animate `mov.frames[:, :, f, k]` — one panel per k, one video frame per f. The
+defaults are the equilibrium movie (±1 spins, one panel per temperature); a
+different model only has to say what its values mean, which is what
+`make_movie_nr` below does. `legend`, if given, is one label per colour in
+`colormap`.
+"""
+function make_movie(mov; file = "ising.mp4", colormap = SPIN, colorrange = (-1, 1), legend = nothing,
+                    titles = paneltitle.(mov.T), label = "Metropolis dynamics, L = $(mov.L)")
     nframes = size(mov.frames, 3)
     fig = Figure(size = (900, 365))
-    obs = map(enumerate(mov.T)) do (k, T)
-        ax = spinaxis(fig, (1, k), paneltitle(T))
+    obs = map(eachindex(titles)) do k
+        ax = spinaxis(fig, (1, k), titles[k])
         o = Observable(mov.frames[:, :, 1, k])
-        heatmap!(ax, o; colormap = SPIN, colorrange = (-1, 1))
+        heatmap!(ax, o; colormap = colormap, colorrange = colorrange)
         o
     end
-    
-    Label(fig[0, :], "Metropolis dynamics, L = $(mov.L)", fontsize = 14)
+
+    legend === nothing || Legend(fig[1, length(titles) + 1],
+        [PolyElement(color = c) for c in colormap], legend;
+        framevisible = false, tellheight = false, patchsize = (14, 14), rowgap = 2)
+
+    Label(fig[0, :], label, fontsize = 14)
     rowgap!(fig.layout, 3)
     rowsize!(fig.layout, 1, Aspect(1, 1.0))
     resize_to_layout!(fig)
 
     prog = Progress(nframes; desc = "recording    ")
     # nframes = 2
-    record(fig, joinpath(FIG, "ising.mp4"), 1:nframes; framerate = 25) do f
+    record(fig, joinpath(FIG, file), 1:nframes; framerate = 25) do f
         for (k, o) in enumerate(obs)
             o[] = mov.frames[:, :, f, k]
         end
@@ -158,18 +182,33 @@ function make_movie(mov)
     end
 end
 
-function main()
-    mkpath(FIG)
-    Ls, byL, colors = load()
-    mov = deserialize(joinpath(DATA, "frames.jls"))
-    
-    fig_critical(Ls, byL, colors)
-    fig_scaling(Ls, byL, colors)
-    fig_snapshots(mov)
+"""
+Movie of the nonreciprocal Ising model from data/nr_frames.jls, written by
+NR_ising_dynamics.jl. Same frame layout as the equilibrium movie, but the
+values are θ indices 1:4 — the four (σ^A, σ^B) states — rather than spins, so
+this passes the cyclic θ palette and one panel title per (J̃, K̃) point.
+"""
+function make_movie_nr(mov)
+    make_movie(mov;
+        file = "nr_ising.mp4", colormap = THETA, colorrange = (1, 4),
+        titles = [L"\tilde{J} = %$J,\; \tilde{K} = %$K" for (J, K) in mov.points],
+        label = "nonreciprocal Ising model, Metropolis, L = $(mov.L)",
+        legend = ["↑↑", "↑↓", "↓↓", "↓↑"])
+end
 
-    make_movie(mov)
+function main()
+    # mkpath(FIG)
+    # Ls, byL, colors = load()
+    # mov = deserialize(joinpath(DATA, "frames.jls"))
     
-    println("→ all written to ", FIG)
+    # fig_critical(Ls, byL, colors)
+    # fig_scaling(Ls, byL, colors)
+    # fig_snapshots(mov)
+
+    # make_movie(mov)
+
+    mov = deserialize(joinpath(DATA, "nr_frames.jls")) 
+    make_movie_nr(mov)
 end
 
 main()
