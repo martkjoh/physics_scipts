@@ -1,0 +1,368 @@
+
+[31120] signal 15: Terminated
+in expression starting at /home/lmp/mjohnsrud/repos/physics_scipts/ising/ising_dynamics_NR.jl:267
+unknown function (ip: 0x7bcb59898e4f) at /lib/x86_64-linux-gnu/libc.so.6
+pthread_cond_wait at /lib/x86_64-linux-gnu/libc.so.6 (unknown line)
+uv_cond_wait at /workspace/srcdir/libuv/src/unix/thread.c:822
+jl_parallel_gc_threadfun at /cache/build/builder-amdci5-3/julialang/julia-release-1-dot-12/src/gc-stock.c:3636
+unknown function (ip: 0x7bcb5989cb83) at /lib/x86_64-linux-gnu/libc.so.6
+unknown function (ip: 0x7bcb59929d6b) at /lib/x86_64-linux-gnu/libc.so.6
+unknown function (ip: (nil)) at (unknown file)
+unknown function (ip: 0x7bcb59898e4f) at /lib/x86_64-linux-gnu/libc.so.6
+pthread_cond_wait at /lib/x86_64-linux-gnu/libc.so.6 (unknown line)
+uv_cond_wait at /workspace/srcdir/libuv/src/unix/thread.c:822
+jl_parallel_gc_threadfun at /cache/build/builder-amdci5-3/julialang/julia-release-1-dot-12/src/gc-stock.c:3636
+unknown function (ip: 0x7bcb5989cb83) at /lib/x86_64-linux-gnu/libc.so.6
+unknown function (ip: 0x7bcb59929d6b) at /lib/x86_64-linux-gnu/libc.so.6
+unknown function (ip: (nil)) at (unknown file)
+unknown function (ip: 0x7bcb59898e4f) at /lib/x86_64-linux-gnu/libc.so.6
+pthread_cond_wait at /lib/x86_64-linux-gnu/libc.so.6 (unknown line)
+uv_cond_wait at /workspace/srcdir/libuv/src/unix/thread.c:822
+jl_parallel_gc_threadfun at /cache/build/builder-amdci5-3/julialang/julia-release-1-dot-12/src/gc-stock.c:3636
+unknown function (ip: 0x7bcb5989cb83) at /lib/x86_64-linux-gnu/libc.so.6
+unknown function (ip: 0x7bcb59929d6b) at /lib/x86_64-linux-gnu/libc.so.6
+unknown function (ip: (nil)) at (unknown file)
+unknown function (ip: 0x7bcb59898e4f) at /lib/x86_64-linux-gnu/libc.so.6
+pthread_cond_wait at /lib/x86_64-linux-gnu/libc.so.6 (unknown line)
+uv_cond_wait at /workspace/srcdir/libuv/src/unix/thread.c:822
+jl_parallel_gc_threadfun at /cache/build/builder-amdci5-3/julialang/julia-release-1-dot-12/src/gc-stock.c:3636
+unknown function (ip: 0x7bcb5989cb83) at /lib/x86_64-linux-gnu/libc.so.6
+unknown function (ip: 0x7bcb59929d6b) at /lib/x86_64-linux-gnu/libc.so.6
+unknown function (ip: (nil)) at (unknown file)
+unknown function (ip: 0x7bcb59898e4f) at /lib/x86_64-linux-gnu/libc.so.6
+pthread_cond_wait at /lib/x86_64-linux-gnu/libc.so.6 (unknown line)
+uv_cond_wait at /workspace/srcdir/libuv/src/unix/thread.c:822
+jl_parallel_gc_threadfun at /cache/build/builder-amdci5-3/julialang/julia-release-1-dot-12/src/gc-stock.c:3636
+unknown function (ip: 0x7bcb5989cb83) at /lib/x86_64-linux-gnu/libc.so.6
+unknown function (ip: 0x7bcb59929d6b) at /lib/x86_64-linux-gnu/libc.so.6
+unknown function (ip: (nil)) at (unknown file)
+unknown function (ip: 0x7bcb59898e4f) at /lib/x86_64-linux-gnu/libc.so.6
+pthread_cond_wait at /lib/x86_64-linux-gnu/libc.so.6 (unknown line)
+uv_cond_wait at /workspace/srcdir/libuv/src/unix/thread.c:822
+jl_parallel_gc_threadfun at /cache/build/builder-amdci5-3/julialang/julia-release-1-dot-12/src/gc-stock.c:3636
+unknown function (ip: 0x7bcb5989cb83) at /lib/x86_64-linux-gnu/libc.so.6
+unknown function (ip: 0x7bcb59929d6b) at /lib/x86_64-linux-gnu/libc.so.6
+unknown function (ip: (nil)) at (unknown file)
+unknown function (ip: 0x7bcb59898e4f) at /lib/x86_64-linux-gnu/libc.so.6
+pthread_cond_wait at /lib/x86_64-linux-gnu/libc.so.6 (unknown line)
+uv_cond_wait at /workspace/srcdir/libuv/src/unix/thread.c:822
+jl_parallel_gc_threadfun at /cache/build/builder-amdci5-3/julialang/julia-release-1-dot-12/src/gc-stock.c:3636
+unknown function (ip: 0x7bcb5989cb83) at /lib/x86_64-linux-gnu/libc.so.6
+unknown function (ip: 0x7bcb59929d6b) at /lib/x86_64-linux-gnu/libc.so.6
+unknown function (ip: (nil)) at (unknown file)
+unknown function (ip: 0x7bcb59898e4f) at /lib/x86_64-linux-gnu/libc.so.6
+pthread_cond_wait at /lib/x86_64-linux-gnu/libc.so.6 (unknown line)
+uv_cond_wait at /workspace/srcdir/libuv/src/unix/thread.c:822
+jl_parallel_gc_threadfun at /cache/build/builder-amdci5-3/julialang/julia-release-1-dot-12/src/gc-stock.c:3636
+unknown function (ip: 0x7bcb5989cb83) at /lib/x86_64-linux-gnu/libc.so.6
+unknown function (ip: 0x7bcb59929d6b) at /lib/x86_64-linux-gnu/libc.so.6
+unknown function (ip: (nil)) at (unknown file)
+unknown function (ip: 0x7bcb59898e4f) at /lib/x86_64-linux-gnu/libc.so.6
+pthread_cond_wait at /lib/x86_64-linux-gnu/libc.so.6 (unknown line)
+uv_cond_wait at /workspace/srcdir/libuv/src/unix/thread.c:822
+jl_parallel_gc_threadfun at /cache/build/builder-amdci5-3/julialang/julia-release-1-dot-12/src/gc-stock.c:3636
+unknown function (ip: 0x7bcb5989cb83) at /lib/x86_64-linux-gnu/libc.so.6
+unknown function (ip: 0x7bcb59929d6b) at /lib/x86_64-linux-gnu/libc.so.6
+unknown function (ip: (nil)) at (unknown file)
+unknown function (ip: 0x7bcb59898e4f) at /lib/x86_64-linux-gnu/libc.so.6
+pthread_cond_wait at /lib/x86_64-linux-gnu/libc.so.6 (unknown line)
+uv_cond_wait at /workspace/srcdir/libuv/src/unix/thread.c:822
+jl_parallel_gc_threadfun at /cache/build/builder-amdci5-3/julialang/julia-release-1-dot-12/src/gc-stock.c:3636
+unknown function (ip: 0x7bcb5989cb83) at /lib/x86_64-linux-gnu/libc.so.6
+unknown function (ip: 0x7bcb59929d6b) at /lib/x86_64-linux-gnu/libc.so.6
+unknown function (ip: (nil)) at (unknown file)
+unknown function (ip: 0x7bcb59898e4f) at /lib/x86_64-linux-gnu/libc.so.6
+pthread_cond_wait at /lib/x86_64-linux-gnu/libc.so.6 (unknown line)
+uv_cond_wait at /workspace/srcdir/libuv/src/unix/thread.c:822
+jl_parallel_gc_threadfun at /cache/build/builder-amdci5-3/julialang/julia-release-1-dot-12/src/gc-stock.c:3636
+unknown function (ip: 0x7bcb5989cb83) at /lib/x86_64-linux-gnu/libc.so.6
+unknown function (ip: 0x7bcb59929d6b) at /lib/x86_64-linux-gnu/libc.so.6
+unknown function (ip: (nil)) at (unknown file)
+unknown function (ip: 0x7bcb59898e4f) at /lib/x86_64-linux-gnu/libc.so.6
+pthread_cond_wait at /lib/x86_64-linux-gnu/libc.so.6 (unknown line)
+uv_cond_wait at /workspace/srcdir/libuv/src/unix/thread.c:822
+jl_parallel_gc_threadfun at /cache/build/builder-amdci5-3/julialang/julia-release-1-dot-12/src/gc-stock.c:3636
+unknown function (ip: 0x7bcb5989cb83) at /lib/x86_64-linux-gnu/libc.so.6
+unknown function (ip: 0x7bcb59929d6b) at /lib/x86_64-linux-gnu/libc.so.6
+unknown function (ip: (nil)) at (unknown file)
+unknown function (ip: 0x7bcb59898e4f) at /lib/x86_64-linux-gnu/libc.so.6
+pthread_cond_wait at /lib/x86_64-linux-gnu/libc.so.6 (unknown line)
+uv_cond_wait at /workspace/srcdir/libuv/src/unix/thread.c:822
+jl_parallel_gc_threadfun at /cache/build/builder-amdci5-3/julialang/julia-release-1-dot-12/src/gc-stock.c:3636
+unknown function (ip: 0x7bcb5989cb83) at /lib/x86_64-linux-gnu/libc.so.6
+unknown function (ip: 0x7bcb59929d6b) at /lib/x86_64-linux-gnu/libc.so.6
+unknown function (ip: (nil)) at (unknown file)
+unknown function (ip: 0x7bcb59898e4f) at /lib/x86_64-linux-gnu/libc.so.6
+pthread_cond_wait at /lib/x86_64-linux-gnu/libc.so.6 (unknown line)
+uv_cond_wait at /workspace/srcdir/libuv/src/unix/thread.c:822
+jl_parallel_gc_threadfun at /cache/build/builder-amdci5-3/julialang/julia-release-1-dot-12/src/gc-stock.c:3636
+unknown function (ip: 0x7bcb5989cb83) at /lib/x86_64-linux-gnu/libc.so.6
+unknown function (ip: 0x7bcb59929d6b) at /lib/x86_64-linux-gnu/libc.so.6
+unknown function (ip: (nil)) at (unknown file)
+unknown function (ip: 0x7bcb59898e4f) at /lib/x86_64-linux-gnu/libc.so.6
+pthread_cond_wait at /lib/x86_64-linux-gnu/libc.so.6 (unknown line)
+uv_cond_wait at /workspace/srcdir/libuv/src/unix/thread.c:822
+jl_parallel_gc_threadfun at /cache/build/builder-amdci5-3/julialang/julia-release-1-dot-12/src/gc-stock.c:3636
+unknown function (ip: 0x7bcb5989cb83) at /lib/x86_64-linux-gnu/libc.so.6
+unknown function (ip: 0x7bcb59929d6b) at /lib/x86_64-linux-gnu/libc.so.6
+unknown function (ip: (nil)) at (unknown file)
+rem at ./int.jl:550 [inlined]
+rand at /cache/build/builder-amdci5-3/julialang/julia-release-1-dot-12/usr/share/julia/stdlib/v1.12/Random/src/generation.jl:387
+rand at /cache/build/builder-amdci5-3/julialang/julia-release-1-dot-12/usr/share/julia/stdlib/v1.12/Random/src/Random.jl:255 [inlined]
+rand at /cache/build/builder-amdci5-3/julialang/julia-release-1-dot-12/usr/share/julia/stdlib/v1.12/Random/src/Random.jl:260 [inlined]
+kawasaki! at /home/lmp/mjohnsrud/repos/physics_scipts/ising/ising_dynamics_NR.jl:99
+#movie_frames#1 at /home/lmp/mjohnsrud/repos/physics_scipts/ising/ising_dynamics_NR.jl:182
+movie_frames at /home/lmp/mjohnsrud/repos/physics_scipts/ising/ising_dynamics_NR.jl:174 [inlined]
+macro expansion at /home/lmp/mjohnsrud/repos/physics_scipts/ising/ising_dynamics_NR.jl:237 [inlined]
+#10 at ./threadingconstructs.jl:276
+#8 at ./threadingconstructs.jl:243 [inlined]
+#threading_run##0 at ./threadingconstructs.jl:177
+unknown function (ip: 0x7bca9c107e21) at (unknown file)
+jl_apply at /cache/build/builder-amdci5-3/julialang/julia-release-1-dot-12/src/julia.h:2391 [inlined]
+start_task at /cache/build/builder-amdci5-3/julialang/julia-release-1-dot-12/src/task.c:1252
+unknown function (ip: (nil)) at (unknown file)
+rand at /cache/build/builder-amdci5-3/julialang/julia-release-1-dot-12/usr/share/julia/stdlib/v1.12/Random/src/Random.jl:255 [inlined]
+rand at /cache/build/builder-amdci5-3/julialang/julia-release-1-dot-12/usr/share/julia/stdlib/v1.12/Random/src/Random.jl:260 [inlined]
+kawasaki! at /home/lmp/mjohnsrud/repos/physics_scipts/ising/ising_dynamics_NR.jl:99
+#movie_frames#1 at /home/lmp/mjohnsrud/repos/physics_scipts/ising/ising_dynamics_NR.jl:182
+movie_frames at /home/lmp/mjohnsrud/repos/physics_scipts/ising/ising_dynamics_NR.jl:174 [inlined]
+macro expansion at /home/lmp/mjohnsrud/repos/physics_scipts/ising/ising_dynamics_NR.jl:237 [inlined]
+#10 at ./threadingconstructs.jl:276
+#8 at ./threadingconstructs.jl:243 [inlined]
+#threading_run##0 at ./threadingconstructs.jl:177
+unknown function (ip: 0x7bca9c107e21) at (unknown file)
+jl_apply at /cache/build/builder-amdci5-3/julialang/julia-release-1-dot-12/src/julia.h:2391 [inlined]
+start_task at /cache/build/builder-amdci5-3/julialang/julia-release-1-dot-12/src/task.c:1252
+unknown function (ip: (nil)) at (unknown file)
+kawasaki! at /home/lmp/mjohnsrud/repos/physics_scipts/ising/ising_dynamics_NR.jl:0
+#movie_frames#1 at /home/lmp/mjohnsrud/repos/physics_scipts/ising/ising_dynamics_NR.jl:182
+movie_frames at /home/lmp/mjohnsrud/repos/physics_scipts/ising/ising_dynamics_NR.jl:174 [inlined]
+macro expansion at /home/lmp/mjohnsrud/repos/physics_scipts/ising/ising_dynamics_NR.jl:237 [inlined]
+#10 at ./threadingconstructs.jl:276
+#8 at ./threadingconstructs.jl:243 [inlined]
+#threading_run##0 at ./threadingconstructs.jl:177
+unknown function (ip: 0x7bca9c107e21) at (unknown file)
+jl_apply at /cache/build/builder-amdci5-3/julialang/julia-release-1-dot-12/src/julia.h:2391 [inlined]
+start_task at /cache/build/builder-amdci5-3/julialang/julia-release-1-dot-12/src/task.c:1252
+unknown function (ip: (nil)) at (unknown file)
+- at ./int.jl:86 [inlined]
+offsetin at ./abstractarray.jl:3088 [inlined]
+_sub2ind_recurse at ./abstractarray.jl:3081 [inlined]
+_sub2ind_recurse at ./abstractarray.jl:3081 [inlined]
+_sub2ind at ./abstractarray.jl:3065 [inlined]
+_sub2ind at ./abstractarray.jl:3049 [inlined]
+_to_linear_index at ./abstractarray.jl:1377 [inlined]
+getindex at ./array.jl:929 [inlined]
+kawasaki! at /home/lmp/mjohnsrud/repos/physics_scipts/ising/ising_dynamics_NR.jl:102
+#movie_frames#1 at /home/lmp/mjohnsrud/repos/physics_scipts/ising/ising_dynamics_NR.jl:182
+movie_frames at /home/lmp/mjohnsrud/repos/physics_scipts/ising/ising_dynamics_NR.jl:174 [inlined]
+macro expansion at /home/lmp/mjohnsrud/repos/physics_scipts/ising/ising_dynamics_NR.jl:237 [inlined]
+#10 at ./threadingconstructs.jl:276
+#8 at ./threadingconstructs.jl:243 [inlined]
+#threading_run##0 at ./threadingconstructs.jl:177
+unknown function (ip: 0x7bca9c107e21) at (unknown file)
+jl_apply at /cache/build/builder-amdci5-3/julialang/julia-release-1-dot-12/src/julia.h:2391 [inlined]
+start_task at /cache/build/builder-amdci5-3/julialang/julia-release-1-dot-12/src/task.c:1252
+unknown function (ip: (nil)) at (unknown file)
+- at ./int.jl:86 [inlined]
+offsetin at ./abstractarray.jl:3088 [inlined]
+_sub2ind_recurse at ./abstractarray.jl:3081 [inlined]
+_sub2ind_recurse at ./abstractarray.jl:3081 [inlined]
+_sub2ind_recurse at ./abstractarray.jl:3081 [inlined]
+_sub2ind at ./abstractarray.jl:3065 [inlined]
+_sub2ind at ./abstractarray.jl:3049 [inlined]
+_to_linear_index at ./abstractarray.jl:1377 [inlined]
+getindex at ./array.jl:929 [inlined]
+kawasaki! at /home/lmp/mjohnsrud/repos/physics_scipts/ising/ising_dynamics_NR.jl:102
+#movie_frames#1 at /home/lmp/mjohnsrud/repos/physics_scipts/ising/ising_dynamics_NR.jl:182
+movie_frames at /home/lmp/mjohnsrud/repos/physics_scipts/ising/ising_dynamics_NR.jl:174 [inlined]
+macro expansion at /home/lmp/mjohnsrud/repos/physics_scipts/ising/ising_dynamics_NR.jl:237 [inlined]
+#10 at ./threadingconstructs.jl:276
+#8 at ./threadingconstructs.jl:243 [inlined]
+#threading_run##0 at ./threadingconstructs.jl:177
+unknown function (ip: 0x7bca9c107e21) at (unknown file)
+jl_apply at /cache/build/builder-amdci5-3/julialang/julia-release-1-dot-12/src/julia.h:2391 [inlined]
+start_task at /cache/build/builder-amdci5-3/julialang/julia-release-1-dot-12/src/task.c:1252
+unknown function (ip: (nil)) at (unknown file)
+rand at /cache/build/builder-amdci5-3/julialang/julia-release-1-dot-12/usr/share/julia/stdlib/v1.12/Random/src/Random.jl:255 [inlined]
+rand at /cache/build/builder-amdci5-3/julialang/julia-release-1-dot-12/usr/share/julia/stdlib/v1.12/Random/src/Random.jl:260 [inlined]
+kawasaki! at /home/lmp/mjohnsrud/repos/physics_scipts/ising/ising_dynamics_NR.jl:100
+#movie_frames#1 at /home/lmp/mjohnsrud/repos/physics_scipts/ising/ising_dynamics_NR.jl:182
+movie_frames at /home/lmp/mjohnsrud/repos/physics_scipts/ising/ising_dynamics_NR.jl:174 [inlined]
+macro expansion at /home/lmp/mjohnsrud/repos/physics_scipts/ising/ising_dynamics_NR.jl:237 [inlined]
+#10 at ./threadingconstructs.jl:276
+#8 at ./threadingconstructs.jl:243 [inlined]
+#threading_run##0 at ./threadingconstructs.jl:177
+unknown function (ip: 0x7bca9c107e21) at (unknown file)
+jl_apply at /cache/build/builder-amdci5-3/julialang/julia-release-1-dot-12/src/julia.h:2391 [inlined]
+start_task at /cache/build/builder-amdci5-3/julialang/julia-release-1-dot-12/src/task.c:1252
+unknown function (ip: (nil)) at (unknown file)
+| at ./int.jl:378 [inlined]
+rand at /cache/build/builder-amdci5-3/julialang/julia-release-1-dot-12/usr/share/julia/stdlib/v1.12/Random/src/Xoshiro.jl:273 [inlined]
+rand at /cache/build/builder-amdci5-3/julialang/julia-release-1-dot-12/usr/share/julia/stdlib/v1.12/Random/src/Random.jl:258 [inlined]
+rand at /cache/build/builder-amdci5-3/julialang/julia-release-1-dot-12/usr/share/julia/stdlib/v1.12/Random/src/generation.jl:376
+rand at /cache/build/builder-amdci5-3/julialang/julia-release-1-dot-12/usr/share/julia/stdlib/v1.12/Random/src/Random.jl:255 [inlined]
+rand at /cache/build/builder-amdci5-3/julialang/julia-release-1-dot-12/usr/share/julia/stdlib/v1.12/Random/src/Random.jl:260 [inlined]
+kawasaki! at /home/lmp/mjohnsrud/repos/physics_scipts/ising/ising_dynamics_NR.jl:99
+#movie_frames#1 at /home/lmp/mjohnsrud/repos/physics_scipts/ising/ising_dynamics_NR.jl:182
+movie_frames at /home/lmp/mjohnsrud/repos/physics_scipts/ising/ising_dynamics_NR.jl:174 [inlined]
+macro expansion at /home/lmp/mjohnsrud/repos/physics_scipts/ising/ising_dynamics_NR.jl:237 [inlined]
+#10 at ./threadingconstructs.jl:276
+#8 at ./threadingconstructs.jl:243 [inlined]
+#threading_run##0 at ./threadingconstructs.jl:177
+unknown function (ip: 0x7bca9c107e21) at (unknown file)
+jl_apply at /cache/build/builder-amdci5-3/julialang/julia-release-1-dot-12/src/julia.h:2391 [inlined]
+start_task at /cache/build/builder-amdci5-3/julialang/julia-release-1-dot-12/src/task.c:1252
+unknown function (ip: (nil)) at (unknown file)
+- at ./int.jl:86 [inlined]
+dn at /home/lmp/mjohnsrud/repos/physics_scipts/ising/ising_dynamics_NR.jl:46 [inlined]
+kawasaki! at /home/lmp/mjohnsrud/repos/physics_scipts/ising/ising_dynamics_NR.jl:101
+#movie_frames#1 at /home/lmp/mjohnsrud/repos/physics_scipts/ising/ising_dynamics_NR.jl:182
+movie_frames at /home/lmp/mjohnsrud/repos/physics_scipts/ising/ising_dynamics_NR.jl:174 [inlined]
+macro expansion at /home/lmp/mjohnsrud/repos/physics_scipts/ising/ising_dynamics_NR.jl:237 [inlined]
+#10 at ./threadingconstructs.jl:276
+#8 at ./threadingconstructs.jl:243 [inlined]
+#threading_run##0 at ./threadingconstructs.jl:177
+unknown function (ip: 0x7bca9c107e21) at (unknown file)
+jl_apply at /cache/build/builder-amdci5-3/julialang/julia-release-1-dot-12/src/julia.h:2391 [inlined]
+start_task at /cache/build/builder-amdci5-3/julialang/julia-release-1-dot-12/src/task.c:1252
+unknown function (ip: (nil)) at (unknown file)
+== at ./promotion.jl:637 [inlined]
+dn at /home/lmp/mjohnsrud/repos/physics_scipts/ising/ising_dynamics_NR.jl:46 [inlined]
+kawasaki! at /home/lmp/mjohnsrud/repos/physics_scipts/ising/ising_dynamics_NR.jl:105
+#movie_frames#1 at /home/lmp/mjohnsrud/repos/physics_scipts/ising/ising_dynamics_NR.jl:182
+movie_frames at /home/lmp/mjohnsrud/repos/physics_scipts/ising/ising_dynamics_NR.jl:174 [inlined]
+macro expansion at /home/lmp/mjohnsrud/repos/physics_scipts/ising/ising_dynamics_NR.jl:237 [inlined]
+#10 at ./threadingconstructs.jl:276
+#8 at ./threadingconstructs.jl:243 [inlined]
+#threading_run##0 at ./threadingconstructs.jl:177
+unknown function (ip: 0x7bca9c107e21) at (unknown file)
+jl_apply at /cache/build/builder-amdci5-3/julialang/julia-release-1-dot-12/src/julia.h:2391 [inlined]
+start_task at /cache/build/builder-amdci5-3/julialang/julia-release-1-dot-12/src/task.c:1252
+unknown function (ip: (nil)) at (unknown file)
+kawasaki! at /home/lmp/mjohnsrud/repos/physics_scipts/ising/ising_dynamics_NR.jl:0
+#movie_frames#1 at /home/lmp/mjohnsrud/repos/physics_scipts/ising/ising_dynamics_NR.jl:182
+movie_frames at /home/lmp/mjohnsrud/repos/physics_scipts/ising/ising_dynamics_NR.jl:174 [inlined]
+macro expansion at /home/lmp/mjohnsrud/repos/physics_scipts/ising/ising_dynamics_NR.jl:237 [inlined]
+#10 at ./threadingconstructs.jl:276
+#8 at ./threadingconstructs.jl:243 [inlined]
+#threading_run##0 at ./threadingconstructs.jl:177
+unknown function (ip: 0x7bca9c107e21) at (unknown file)
+jl_apply at /cache/build/builder-amdci5-3/julialang/julia-release-1-dot-12/src/julia.h:2391 [inlined]
+start_task at /cache/build/builder-amdci5-3/julialang/julia-release-1-dot-12/src/task.c:1252
+unknown function (ip: (nil)) at (unknown file)
+muladd at ./float.jl:500 [inlined]
+macro expansion at ./math.jl:95 [inlined]
+evalpoly at ./math.jl:94 [inlined]
+expm1b_kernel at ./special/exp.jl:78 [inlined]
+exp_impl at ./special/exp.jl:216 [inlined]
+exp at ./special/exp.jl:329
+kawasaki! at /home/lmp/mjohnsrud/repos/physics_scipts/ising/ising_dynamics_NR.jl:113
+#movie_frames#1 at /home/lmp/mjohnsrud/repos/physics_scipts/ising/ising_dynamics_NR.jl:182
+movie_frames at /home/lmp/mjohnsrud/repos/physics_scipts/ising/ising_dynamics_NR.jl:174 [inlined]
+macro expansion at /home/lmp/mjohnsrud/repos/physics_scipts/ising/ising_dynamics_NR.jl:237 [inlined]
+#10 at ./threadingconstructs.jl:276
+#8 at ./threadingconstructs.jl:243 [inlined]
+#threading_run##0 at ./threadingconstructs.jl:177
+unknown function (ip: 0x7bca9c107e21) at (unknown file)
+jl_apply at /cache/build/builder-amdci5-3/julialang/julia-release-1-dot-12/src/julia.h:2391 [inlined]
+start_task at /cache/build/builder-amdci5-3/julialang/julia-release-1-dot-12/src/task.c:1252
+unknown function (ip: (nil)) at (unknown file)
++ at ./int.jl:87 [inlined]
+up at /home/lmp/mjohnsrud/repos/physics_scipts/ising/ising_dynamics_NR.jl:45 [inlined]
+kawasaki! at /home/lmp/mjohnsrud/repos/physics_scipts/ising/ising_dynamics_NR.jl:101
+#movie_frames#1 at /home/lmp/mjohnsrud/repos/physics_scipts/ising/ising_dynamics_NR.jl:182
+movie_frames at /home/lmp/mjohnsrud/repos/physics_scipts/ising/ising_dynamics_NR.jl:174 [inlined]
+macro expansion at /home/lmp/mjohnsrud/repos/physics_scipts/ising/ising_dynamics_NR.jl:237 [inlined]
+#10 at ./threadingconstructs.jl:276
+#8 at ./threadingconstructs.jl:243 [inlined]
+#threading_run##0 at ./threadingconstructs.jl:177
+unknown function (ip: 0x7bca9c107e21) at (unknown file)
+jl_apply at /cache/build/builder-amdci5-3/julialang/julia-release-1-dot-12/src/julia.h:2391 [inlined]
+start_task at /cache/build/builder-amdci5-3/julialang/julia-release-1-dot-12/src/task.c:1252
+unknown function (ip: (nil)) at (unknown file)
+getindex at ./essentials.jl:920 [inlined]
+getindex at ./array.jl:929 [inlined]
+kawasaki! at /home/lmp/mjohnsrud/repos/physics_scipts/ising/ising_dynamics_NR.jl:105
+#movie_frames#1 at /home/lmp/mjohnsrud/repos/physics_scipts/ising/ising_dynamics_NR.jl:182
+movie_frames at /home/lmp/mjohnsrud/repos/physics_scipts/ising/ising_dynamics_NR.jl:174 [inlined]
+macro expansion at /home/lmp/mjohnsrud/repos/physics_scipts/ising/ising_dynamics_NR.jl:237 [inlined]
+#10 at ./threadingconstructs.jl:276
+#8 at ./threadingconstructs.jl:243 [inlined]
+#threading_run##0 at ./threadingconstructs.jl:177
+unknown function (ip: 0x7bca9c107e21) at (unknown file)
+jl_apply at /cache/build/builder-amdci5-3/julialang/julia-release-1-dot-12/src/julia.h:2391 [inlined]
+start_task at /cache/build/builder-amdci5-3/julialang/julia-release-1-dot-12/src/task.c:1252
+unknown function (ip: (nil)) at (unknown file)
+reinterpret at ./essentials.jl:733 [inlined]
+table_unpack at ./special/exp.jl:181 [inlined]
+exp_impl at ./special/exp.jl:215 [inlined]
+exp at ./special/exp.jl:329
+kawasaki! at /home/lmp/mjohnsrud/repos/physics_scipts/ising/ising_dynamics_NR.jl:113
+#movie_frames#1 at /home/lmp/mjohnsrud/repos/physics_scipts/ising/ising_dynamics_NR.jl:182
+movie_frames at /home/lmp/mjohnsrud/repos/physics_scipts/ising/ising_dynamics_NR.jl:174 [inlined]
+macro expansion at /home/lmp/mjohnsrud/repos/physics_scipts/ising/ising_dynamics_NR.jl:237 [inlined]
+#10 at ./threadingconstructs.jl:276
+#8 at ./threadingconstructs.jl:243 [inlined]
+#threading_run##0 at ./threadingconstructs.jl:177
+unknown function (ip: 0x7bca9c107e21) at (unknown file)
+jl_apply at /cache/build/builder-amdci5-3/julialang/julia-release-1-dot-12/src/julia.h:2391 [inlined]
+start_task at /cache/build/builder-amdci5-3/julialang/julia-release-1-dot-12/src/task.c:1252
+unknown function (ip: (nil)) at (unknown file)
+- at ./int.jl:86 [inlined]
+offsetin at ./abstractarray.jl:3088 [inlined]
+_sub2ind_recurse at ./abstractarray.jl:3081 [inlined]
+_sub2ind_recurse at ./abstractarray.jl:3081 [inlined]
+_sub2ind_recurse at ./abstractarray.jl:3081 [inlined]
+_sub2ind at ./abstractarray.jl:3065 [inlined]
+_sub2ind at ./abstractarray.jl:3049 [inlined]
+_to_linear_index at ./abstractarray.jl:1377 [inlined]
+getindex at ./array.jl:929 [inlined]
+kawasaki! at /home/lmp/mjohnsrud/repos/physics_scipts/ising/ising_dynamics_NR.jl:102
+#movie_frames#1 at /home/lmp/mjohnsrud/repos/physics_scipts/ising/ising_dynamics_NR.jl:182
+movie_frames at /home/lmp/mjohnsrud/repos/physics_scipts/ising/ising_dynamics_NR.jl:174 [inlined]
+macro expansion at /home/lmp/mjohnsrud/repos/physics_scipts/ising/ising_dynamics_NR.jl:237 [inlined]
+#10 at ./threadingconstructs.jl:276
+#8 at ./threadingconstructs.jl:243 [inlined]
+#threading_run##0 at ./threadingconstructs.jl:177
+unknown function (ip: 0x7bca9c107e21) at (unknown file)
+jl_apply at /cache/build/builder-amdci5-3/julialang/julia-release-1-dot-12/src/julia.h:2391 [inlined]
+start_task at /cache/build/builder-amdci5-3/julialang/julia-release-1-dot-12/src/task.c:1252
+unknown function (ip: (nil)) at (unknown file)
+- at ./int.jl:86 [inlined]
+offsetin at ./abstractarray.jl:3088 [inlined]
+_sub2ind_recurse at ./abstractarray.jl:3081 [inlined]
+_sub2ind_recurse at ./abstractarray.jl:3081 [inlined]
+_sub2ind at ./abstractarray.jl:3065 [inlined]
+_sub2ind at ./abstractarray.jl:3049 [inlined]
+_to_linear_index at ./abstractarray.jl:1377 [inlined]
+getindex at ./array.jl:929 [inlined]
+kawasaki! at /home/lmp/mjohnsrud/repos/physics_scipts/ising/ising_dynamics_NR.jl:102
+#movie_frames#1 at /home/lmp/mjohnsrud/repos/physics_scipts/ising/ising_dynamics_NR.jl:182
+movie_frames at /home/lmp/mjohnsrud/repos/physics_scipts/ising/ising_dynamics_NR.jl:174 [inlined]
+macro expansion at /home/lmp/mjohnsrud/repos/physics_scipts/ising/ising_dynamics_NR.jl:237 [inlined]
+#10 at ./threadingconstructs.jl:276
+#8 at ./threadingconstructs.jl:243 [inlined]
+#threading_run##0 at ./threadingconstructs.jl:177
+unknown function (ip: 0x7bca9c107e21) at (unknown file)
+jl_apply at /cache/build/builder-amdci5-3/julialang/julia-release-1-dot-12/src/julia.h:2391 [inlined]
+start_task at /cache/build/builder-amdci5-3/julialang/julia-release-1-dot-12/src/task.c:1252
+unknown function (ip: (nil)) at (unknown file)
+unknown function (ip: 0x7bcb59898e4f) at /lib/x86_64-linux-gnu/libc.so.6
+pthread_cond_wait at /lib/x86_64-linux-gnu/libc.so.6 (unknown line)
+uv_cond_wait at /workspace/srcdir/libuv/src/unix/thread.c:822
+ijl_task_get_next at /cache/build/builder-amdci5-3/julialang/julia-release-1-dot-12/src/scheduler.c:523
+poptask at ./task.jl:1216
+wait at ./task.jl:1228
+#wait#398 at ./condition.jl:141
+wait at ./condition.jl:136 [inlined]
+#start_gc_msgs_task##2 at /cache/build/builder-amdci5-3/julialang/julia-release-1-dot-12/usr/share/julia/stdlib/v1.12/Distributed/src/remotecall.jl:281 [inlined]
+lock at ./lock.jl:335
+lock at ./condition.jl:80 [inlined]
+#start_gc_msgs_task##0 at /cache/build/builder-amdci5-3/julialang/julia-release-1-dot-12/usr/share/julia/stdlib/v1.12/Distributed/src/remotecall.jl:279
+unknown function (ip: 0x7bca9c1145bf) at (unknown file)
+jl_apply at /cache/build/builder-amdci5-3/julialang/julia-release-1-dot-12/src/julia.h:2391 [inlined]
+start_task at /cache/build/builder-amdci5-3/julialang/julia-release-1-dot-12/src/task.c:1252
+unknown function (ip: (nil)) at (unknown file)
+Allocations: 2424243 (Pool: 2424232; Big: 11); GC: 8
+Terminated

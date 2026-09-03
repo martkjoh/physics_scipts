@@ -144,37 +144,42 @@ function fig_snapshots(mov)
 end
 
 """
-    make_movie(mov; file, colormap, colorrange, titles, label, legend)
+    make_movie(mov; file, colormap, colorrange, titles, label, legend, ncols)
 
-Animate `mov.frames[:, :, f, k]` — one panel per k, one video frame per f. The
-defaults are the equilibrium movie (±1 spins, one panel per temperature); a
-different model only has to say what its values mean, which is what
-`make_movie_nr` below does. `legend`, if given, is one label per colour in
-`colormap`.
+Animate `mov.frames[:, :, f, k]` — one panel per k, one video frame per f,
+panels laid out in a `ncols`-wide grid (rows filled in as needed — defaults
+to a roughly square grid). The defaults are the equilibrium movie (±1 spins,
+one panel per temperature); a different model only has to say what its
+values mean, which is what `make_movie_nr` below does. `legend`, if given, is
+one label per colour in `colormap`.
 """
 function make_movie(mov; file = "ising.mp4", colormap = SPIN, colorrange = (-1, 1), legend = nothing,
-                    titles = paneltitle.(mov.T), label = "Metropolis dynamics, L = $(mov.L)")
+                    titles = paneltitle.(mov.T), label = "Metropolis dynamics, L = $(mov.L)",
+                    ncols = ceil(Int, sqrt(length(titles))))
     nframes = size(mov.frames, 3)
-    fig = Figure(size = (900, 365))
+    npanels = length(titles)
+    nrows = ceil(Int, npanels / ncols)
+
+    fig = Figure(size = (220 * ncols + (legend === nothing ? 40 : 180), 220 * nrows + 60))
     obs = map(eachindex(titles)) do k
-        ax = spinaxis(fig, (1, k), titles[k])
+        row, col = (k - 1) ÷ ncols + 1, (k - 1) % ncols + 1
+        ax = spinaxis(fig, (row, col), titles[k])
         o = Observable(mov.frames[:, :, 1, k])
         heatmap!(ax, o; colormap = colormap, colorrange = colorrange)
         o
     end
 
-    legend === nothing || Legend(fig[1, length(titles) + 1],
+    legend === nothing || Legend(fig[1:nrows, ncols + 1],
         [PolyElement(color = c) for c in colormap], legend;
         framevisible = false, tellheight = false, patchsize = (14, 14), rowgap = 2)
 
-    Label(fig[0, :], label, fontsize = 14)
+    Label(fig[0, 1:ncols], label, fontsize = 14)
     rowgap!(fig.layout, 3)
-    rowsize!(fig.layout, 1, Aspect(1, 1.0))
+    for r in 1:nrows rowsize!(fig.layout, r, Aspect(1, 1.0)) end
     resize_to_layout!(fig)
 
     prog = Progress(nframes; desc = "recording    ")
-    # nframes = 2
-    record(fig, joinpath(FIG, file), 1:nframes; framerate = 25) do f
+    record(fig, joinpath(FIG, file), 1:nframes; framerate=25, compression=40) do f
         for (k, o) in enumerate(obs)
             o[] = mov.frames[:, :, f, k]
         end
@@ -188,12 +193,27 @@ NR_ising_dynamics.jl. Same frame layout as the equilibrium movie, but the
 values are θ indices 1:4 — the four (σ^A, σ^B) states — rather than spins, so
 this passes the cyclic θ palette and one panel title per (J̃, K̃) point.
 """
-function make_movie_nr(mov)
+function make_movie_nr(mov; file = "nr_ising.mp4", ncols = ceil(Int, sqrt(length(mov.points))))
     make_movie(mov;
-        file = "nr_ising.mp4", colormap = THETA, colorrange = (1, 4),
+        file = file, colormap = THETA, colorrange = (1, 4), ncols = ncols,
         titles = [L"\tilde{J} = %$J,\; \tilde{K} = %$K" for (J, K) in mov.points],
-        label = "nonreciprocal Ising model, Metropolis, L = $(mov.L)",
+        label = "nonreciprocal Ising model, L = $(mov.L)",
         legend = ["↑↑", "↑↓", "↓↓", "↓↑"])
+end
+
+"""
+Loads the parallel runs written by `ising_dynamics_NR.jl`'s `make_movie_runs`
+— `data/<dir>/<n>/frames.jls` for n = 1:length(points), each holding one
+run's own (L, J̃, K̃, sweeps_per_frame, frames) — and stacks them into the same
+(L, L, nframes, npanels) layout the other movies use, so the result can be
+passed straight to `make_movie_nr`.
+"""
+function load_runs(dir)
+    rundir = joinpath(DATA, dir)
+    ns = sort(parse.(Int, readdir(rundir)))
+    runs = [deserialize(joinpath(rundir, string(n), "frames.jls")) for n in ns]
+    frames = cat((r.frames for r in runs)...; dims = 4)
+    return (; L = runs[1].L, points = [(r.J̃, r.K̃) for r in runs], frames)
 end
 
 function main()
@@ -207,8 +227,12 @@ function main()
 
     # make_movie(mov)
 
-    mov = deserialize(joinpath(DATA, "nr_frames.jls")) 
-    make_movie_nr(mov)
+    mov = load_runs("nr_met2")
+    make_movie_nr(mov, file="nr_met2.mp4", ncols=4)
+
+    # mov = load_runs("nr_kawa")
+    # make_movie_nr(mov, file="nr_kawa.mp4", ncols=4)
+
 end
 
 main()

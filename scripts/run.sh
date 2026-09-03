@@ -1,0 +1,1 @@
+/home/lmp/mjohnsrud/.juliaup/bin/julia  -t 16 "ising/ising_dynamics_NR.jl"
