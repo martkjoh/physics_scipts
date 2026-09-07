@@ -126,7 +126,8 @@ end
 paneltitle(T) = L"T = %$(round(T, digits = 3))\;\; (%$(round(T/TC, digits = 2))\, T_c)"
 
 function spinaxis(fig, pos, title)
-    ax = Axis(fig[pos...]; aspect = DataAspect(), title = title, titlealign = :center, titlesize = 13)
+    ax = Axis(fig[pos...]; 
+              aspect=DataAspect(), title=title, titlealign=:center, titlesize=13)
     hidedecorations!(ax); hidespines!(ax)
     return ax
 end
@@ -153,9 +154,13 @@ one panel per temperature); a different model only has to say what its
 values mean, which is what `make_movie_nr` below does. `legend`, if given, is
 one label per colour in `colormap`.
 """
-function make_movie(mov; file = "ising.mp4", colormap = SPIN, colorrange = (-1, 1), legend = nothing,
-                    titles = paneltitle.(mov.T), label = "Metropolis dynamics, L = $(mov.L)",
-                    ncols = ceil(Int, sqrt(length(titles))))
+function make_movie(mov; file="vid.mp4", legend=nothing, 
+                    compression=35, ncols=ceil(Int, sqrt(length(titles))))
+    colormap=SPIN
+    colorrange=(-1, 1)
+    label = "Metropolis dynamics, L = $(mov.L)"
+    titles=paneltitle.(mov.T),
+
     nframes = size(mov.frames, 3)
     npanels = length(titles)
     nrows = ceil(Int, npanels / ncols)
@@ -179,7 +184,7 @@ function make_movie(mov; file = "ising.mp4", colormap = SPIN, colorrange = (-1, 
     resize_to_layout!(fig)
 
     prog = Progress(nframes; desc = "recording    ")
-    record(fig, joinpath(FIG, file), 1:nframes; framerate=25, compression=40) do f
+    record(fig, joinpath(FIG, file), 1:nframes; framerate=25, compression=compression) do f
         for (k, o) in enumerate(obs)
             o[] = mov.frames[:, :, f, k]
         end
@@ -225,13 +230,11 @@ function main()
     # fig_scaling(Ls, byL, colors)
     # fig_snapshots(mov)
 
-    # make_movie(mov)
+    # name = "nr_glau"
+    name = "nr_kawa1"
 
-    mov = load_runs("nr_met2")
-    make_movie_nr(mov, file="nr_met2.mp4", ncols=4)
-
-    # mov = load_runs("nr_kawa")
-    # make_movie_nr(mov, file="nr_kawa.mp4", ncols=4)
+    mov = load_runs(name)
+    make_movie_nr(mov, file=name*".mp4", ncols=8)
 
 end
 
