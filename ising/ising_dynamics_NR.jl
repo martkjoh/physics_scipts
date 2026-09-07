@@ -47,11 +47,11 @@ One sweep is 2L² attempts, site and species drawn at random.
 function glauber!(s::Array{Int8,3}, J̃::Float64, K̃::Float64, nsweeps::Int = 1)
     L = size(s, 1)
     βJ = J̃ / 4                                  # 2d = 4 in two dimensions
-    @inbounds for _ in 1:(nsweeps * length(s))
+    @inbounds for _ in 1:(nsweeps * (2L)^2)
         i, j, α = rand(1:L), rand(1:L), rand(1:2)
         nn = Int(s[up(i, L), j, α]) + Int(s[dn(i, L), j, α]) +
              Int(s[i, up(j, L), α]) + Int(s[i, dn(j, L), α])
-        ε = ifelse(α == 1, 1, -1)                # ε^{AB} = +1, ε^{BA} = -1
+        ε = ifelse(α == 1, 1, -1)
         βΔE = 2 * Int(s[i, j, α]) * (βJ * nn + K̃ * ε * Int(s[i, j, 3 - α]))
         glauber_accept(βΔE) && (s[i, j, α] = -s[i, j, α])
     end
@@ -69,38 +69,44 @@ A site and one of its four neighbours are drawn at random and their spins
 exchanged with Glauber probability ½[1 - tanh(βΔE/2)], where
 
     βΔE_ij^α = (σ_i^α - σ_j^α)(βh_i^α - βh_j^α) ,
-    βh_k^α   = βJ Σ_{l nn of k, l ≠ partner} σ_l^α + K̃ ε^{αβ} σ_k^β .
+    βh_k^α   = βJ Σ_{l nn of k} σ_l^α + K̃ ε^{αβ} σ_k^β .
 
-Sites i and j are the coordinate pairs `(i, j)` and `(i2, j2)` below, each the
+Sites i and j are the coordinate pairs `(i, j)` and `(k, l)` below, each the
 other's exchange partner. Equal spins are skipped.
 
-The `l ≠ partner` excludes the other exchanged site from each neighbour sum,
-making βΔE the change in the energy of lattice α at fixed σ^β. This is Penrose
-(1991) Eq. (8), not the field of Blom Eq. (2) used in their main text; see
+The neighbour sums run over all four neighbours, so each field contains the
+other exchanged site's spin. This is form (A), Blom et al. Eq. (2), not the
+energy change of the move: it differs from that by the constant `-J̃`. See
 "Choice of exchange energy" in README.md.
 """
 function kawasaki!(s::Array{Int8,3}, J̃::Float64, K̃::Float64, nsweeps::Int=1)
     L = size(s, 1)
     βJ = J̃ / 4
-    @inbounds for _ in 1:(nsweeps * length(s))
+    @inbounds for _ in 1:(nsweeps * (2L)^2)
         i, j, α = rand(1:L), rand(1:L), rand(1:2)
         dir = rand(1:4)
-        i2, j2 = dir == 1 ? (up(i, L), j) : dir == 2 ? (dn(i, L), j) : dir == 3 ? (i, up(j, L)) : (i, dn(j, L))
-        s1, s2 = s[i, j, α], s[i2, j2, α]
+        k, l = dir == 1 ? (up(i, L), j) : dir == 2 ? (dn(i, L), j) : dir == 3 ? (i, up(j, L)) : (i, dn(j, L))
+        s1, s2 = s[i, j, α], s[k, l, α]
         s1 == s2 && continue
 
-        # Four neighbours less the partner: each sum contains the other site's
-        # spin exactly once, and the subtraction removes it.
+        # Full four-neighbour sums: each contains the other exchanged site's
+        # spin. Subtracting it (` - Int(s2)`, ` - Int(s1)`) gives form (B).
+        # nn1 = Int(s[up(i, L), j, α]) + Int(s[dn(i, L), j, α]) +
+        #       Int(s[i, up(j, L), α]) + Int(s[i, dn(j, L), α])
+        # nn2 = Int(s[up(k, L), l, α]) + Int(s[dn(k, L), l, α]) +
+        #       Int(s[k, up(l, L), α]) + Int(s[k, dn(l, L), α])
+
         nn1 = Int(s[up(i, L), j, α]) + Int(s[dn(i, L), j, α]) +
               Int(s[i, up(j, L), α]) + Int(s[i, dn(j, L), α]) - Int(s2)
-        nn2 = Int(s[up(i2, L), j2, α]) + Int(s[dn(i2, L), j2, α]) +
-              Int(s[i2, up(j2, L), α]) + Int(s[i2, dn(j2, L), α]) - Int(s1)
+        nn2 = Int(s[up(k, L), l, α]) + Int(s[dn(k, L), l, α]) +
+              Int(s[k, up(l, L), α]) + Int(s[k, dn(l, L), α]) - Int(s1)
+
         ε = ifelse(α == 1, 1, -1)
         h1 = βJ * nn1 + K̃ * ε * Int(s[i, j, 3 - α])
-        h2 = βJ * nn2 + K̃ * ε * Int(s[i2, j2, 3 - α])
+        h2 = βJ * nn2 + K̃ * ε * Int(s[k, l, 3 - α])
         βΔE = (Int(s1) - Int(s2)) * (h1 - h2)
         if glauber_accept(βΔE)
-            s[i, j, α], s[i2, j2, α] = s2, s1
+            s[i, j, α], s[k, l, α] = s2, s1
         end
     end
     return s
@@ -135,7 +141,8 @@ function write_status(dir, i, nframes, t_start)
 end
 
 """
-    movie_frames(L, J̃, K̃; nframes, sweeps_per_frame, dynamics! = glauber!, init = random_lattice, prog = nothing, status_dir = nothing) -> Array{Int8,3}
+    movie_frames(L, J̃, K̃; nframes, sweeps_per_frame, (dynamics!)=glauber!, 
+                init=random_lattice,  prog=nothing, status_dir=nothing) -> Array{Int8,3}
 
 `nframes` snapshots, `sweeps_per_frame` sweeps apart, from `init(L)`. Nothing
 is equilibrated first.
@@ -155,7 +162,7 @@ function movie_frames(L::Int, J̃::Float64, K̃::Float64; nframes::Int, sweeps_p
     s = init(L)
     frames = Array{Int8}(undef, L, L, nframes)
     t_start = now()
-    report_every = max(1, nframes ÷ 1000)                # ≈ every .1 percent
+    report_every = max(1, nframes ÷ 1000)
     for f in 1:nframes
         dynamics!(s, J̃, K̃, sweeps_per_frame)
         @inbounds for j in 1:L, i in 1:L
@@ -212,29 +219,39 @@ function main()
     mkpath(DATA)
 
     points           = [
-        # (1.5, 0.), (1.5, 0.3), (1.5, 0.6), (1.5, 0.9),
+        (1.5, 0.), (1.5, 0.3), (1.5, 0.6), (1.5, 0.9),
         (2.0, 0.), (2.0, 0.3), (2.0, 0.6), (2.0, 0.9),
         (2.5, 0.), (2.5, 0.3), (2.5, 0.6), (2.5, 0.9),
         (3.0, 0.), (3.0, 0.3), (3.0, 0.6), (3.0, 0.9),
-        (3.5, 0.), (3.5, 0.3), (3.5, 0.6), (3.5, 0.9),
+        # (3.5, 0.), (3.5, 0.3), (3.5, 0.6), (3.5, 0.9),
     ]
 
+    points           = [
+        (1.5, 0.),  (1.5, 1.0), (1.5, 2.0), (1.5, 3.0),
+        (3.0, 0.),  (3.0, 1.0), (3.0, 2.0), (3.0, 3.0),
+        (4.5, 0.),  (4.5, 1.0), (4.5, 2.0), (4.5, 3.0),
+        (6.0, 0.),  (6.0, 1.0), (6.0, 2.0), (6.0, 3.0),
+    ]
+
+    n = 8
+    d1, d2 = 0.5, 0.25
+    points = reshape([(i,j) for i in ([1:n;] .* d1) for j in ([1:n;] .* d2)],n,n)
+
     # zero conservation laws
-    L                = 2^11
-    nframes          = 100
-    sweeps_per_frame = 50
-
-    # make_movie_runs(points; L, nframes, sweeps_per_frame, dir = "nr_glau",
-    #                 (dynamics!) = glauber!, init = lattice)
-
-    # two conservation laws
     L                = 2^8
     nframes          = 500
-    sweeps_per_frame = 100_000
+    sweeps_per_frame = 10
 
-    make_movie_runs(points; L, nframes, sweeps_per_frame, dir = "nr_kawa2",
-                    (dynamics!) = kawasaki!, init = random_lattice)
+    # make_movie_runs(points; L, nframes, sweeps_per_frame, dir="nr_glau", (dynamics!)=glauber!)
+
+    # two conservation laws
+    L                = 2^7
+    nframes          = 500
+    sweeps_per_frame = 20_000
+
+    make_movie_runs(points; L, nframes, sweeps_per_frame, dir="nr_kawa1", (dynamics!)=kawasaki!)
 end
 
 # test_NR.jl defines ISING_LOAD_ONLY to load the functions without running main().
-@isdefined(ISING_LOAD_ONLY) || main()
+# @isdefined(ISING_LOAD_ONLY) || 
+main()
