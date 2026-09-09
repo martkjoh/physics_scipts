@@ -191,9 +191,13 @@ end
 
 function make_movie()
     # Configurations below, at, and above T_c, for the snapshots and the movie.
-    Lmov, spf, nframes, nequil = 2^8, 5, 300, 50_000
+    
+    Lmov, spf, nframes, nequil = 2^8, 1, 300, 50_000
     temps = [0.8TC, TC, 1.2TC]
+    
+    Lmov, spf, nframes, nequil = 2^11, 100, 1000, 10_000
     temps = [TC]
+    
     prog = Progress(length(temps) * (nequil + nframes * spf); desc = "movie sweeps ")
     frames = cat((movie_frames(Lmov, T; nframes, sweeps_per_frame = spf, nequil, prog) for T in temps)...; dims = 4)
     serialize(joinpath(DATA, "frames.jls"), (; L = Lmov, T = temps, sweeps_per_frame = spf, frames))

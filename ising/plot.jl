@@ -21,6 +21,7 @@ const TC = 2 / log1p(sqrt(2))
 const DATA = joinpath(@__DIR__, "data")
 const FIG = joinpath(@__DIR__, "fig")
 const SPIN = [RGBf(0.96, 0.96, 0.93), RGBf(0.13, 0.15, 0.22)]   # s = -1, +1
+const SPININV = [SPIN[2], SPIN[1]]   # s = -1, +1
 
 # The four states of a site of the nonreciprocal model, in the order the swap
 # cycles through them: (+,+) → (+,-) → (-,-) → (-,+) → (+,+). θ is an angle, so
@@ -126,22 +127,25 @@ end
 paneltitle(T) = L"T = %$(round(T, digits = 3))\;\; (%$(round(T/TC, digits = 2))\, T_c)"
 
 function spinaxis(fig, pos, title)
-    ax = Axis(fig[pos...]; 
-              aspect=DataAspect(), title=title, titlealign=:center, titlesize=13)
+    if isnothing(title)
+        ax = Axis(fig[pos...]; aspect=DataAspect())
+    else
+        ax = Axis(fig[pos...]; aspect=DataAspect(), title=title, titlealign=:center, titlesize=13)
+    end
     hidedecorations!(ax); hidespines!(ax)
     return ax
 end
 
-function fig_snapshots(mov)
+function fig_snapshots(mov; file="snapshots.pdf", colormap=SPIN)
     fig = Figure(size = (790, 305))
     for (k, T) in enumerate(mov.T)
         ax = spinaxis(fig, (1, k), paneltitle(T))
-        heatmap!(ax, mov.frames[:, :, end, k]; colormap = SPIN, colorrange = (-1, 1), rasterize = 4)
+        heatmap!(ax, mov.frames[:, :, end, k]; colormap=colormap, colorrange = (-1, 1), rasterize = 4)
     end
-    Label(fig[0, 1:3],"Metropolis dynamics, L = $(mov.L)",fontsize = 13)
+    n = length(mov.T)//2 + 1
+    Label(fig[0, 1:n],"Metropolis dynamics, L = $(mov.L)",fontsize = 13)
     rowgap!(fig.layout, 3)
-    save(joinpath(FIG, "snapshots.pdf"), fig)
-    # save(joinpath(FIG, "snapshots.png"), fig; px_per_unit = 3)
+    save(joinpath(FIG, file), fig)
 end
 
 """
@@ -154,21 +158,21 @@ one panel per temperature); a different model only has to say what its
 values mean, which is what `make_movie_nr` below does. `legend`, if given, is
 one label per colour in `colormap`.
 """
-function make_movie(mov; file="vid.mp4", legend=nothing, 
-                    compression=35, ncols=ceil(Int, sqrt(length(titles))))
-    colormap=SPIN
+function make_movie(mov; file="vid.mp4", legend=nothing, compression=35, ncols=1, include_title=false, nframes=nothing, colormap=SPIN)
     colorrange=(-1, 1)
     label = "Metropolis dynamics, L = $(mov.L)"
-    titles=paneltitle.(mov.T),
+    titles=paneltitle.(mov.T)
 
-    nframes = size(mov.frames, 3)
+    nframes = isnothing(nframes) ? size(mov.frames, 3) : nframes
+    println(nframes)
     npanels = length(titles)
     nrows = ceil(Int, npanels / ncols)
 
     fig = Figure(size = (220 * ncols + (legend === nothing ? 40 : 180), 220 * nrows + 60))
-    obs = map(eachindex(titles)) do k
+    obs = map(eachindex(mov.T)) do k
         row, col = (k - 1) ÷ ncols + 1, (k - 1) % ncols + 1
-        ax = spinaxis(fig, (row, col), titles[k])
+        title = include_title ? titles[k] : nothing
+        ax = spinaxis(fig, (row, col), title)
         o = Observable(mov.frames[:, :, 1, k])
         heatmap!(ax, o; colormap = colormap, colorrange = colorrange)
         o
@@ -178,7 +182,7 @@ function make_movie(mov; file="vid.mp4", legend=nothing,
         [PolyElement(color = c) for c in colormap], legend;
         framevisible = false, tellheight = false, patchsize = (14, 14), rowgap = 2)
 
-    Label(fig[0, 1:ncols], label, fontsize = 14)
+    # Label(fig[0, 1:ncols], label, fontsize = 14)
     rowgap!(fig.layout, 3)
     for r in 1:nrows rowsize!(fig.layout, r, Aspect(1, 1.0)) end
     resize_to_layout!(fig)
@@ -222,19 +226,21 @@ function load_runs(dir)
 end
 
 function main()
-    # mkpath(FIG)
+    # mkpath(FIG)nframes
+
     # Ls, byL, colors = load()
-    # mov = deserialize(joinpath(DATA, "frames.jls"))
-    
     # fig_critical(Ls, byL, colors)
     # fig_scaling(Ls, byL, colors)
-    # fig_snapshots(mov)
+    
+    mov = deserialize(joinpath(DATA, "frames.jls"))
+    fig_snapshots(mov; file="snapshotTC_inv.pdf", colormap=SPININV)
+    make_movie(mov; file="isingTC_short_inv.mp4", compression=20, nframes=100, colormap=SPININV)
 
     # name = "nr_glau"
-    name = "nr_kawa1"
+    # name = "nr_kawa1"
 
-    mov = load_runs(name)
-    make_movie_nr(mov, file=name*".mp4", ncols=8)
+    # mov = load_runs(name)
+    # make_movie_nr(mov, file=name*".mp4", ncols=8)
 
 end
 
